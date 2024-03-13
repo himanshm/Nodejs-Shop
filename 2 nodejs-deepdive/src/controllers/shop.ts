@@ -15,6 +15,12 @@ export const getProducts = (
   });
 };
 
+export const getProduct = (req: Request, res: Response, next: NextFunction) => {
+  const prodId = req.params.productId;
+  console.log(prodId);
+  res.redirect('/');
+};
+
 export const getIndex = (req: Request, res: Response, next: NextFunction) => {
   Product.fetchAll((products) => {
     res.render('shop/index', {
