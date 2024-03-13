@@ -1,7 +1,11 @@
 import fs from 'fs';
 import path from 'path';
 import directoryName from '../util/path';
-import { ProductType } from './product';
+
+interface ProductType {
+  id: string;
+  qty: number;
+}
 
 interface CartType {
   products: ProductType[];
@@ -37,7 +41,7 @@ export class Cart {
         updatedProduct = { id: id, qty: 1 };
         cart.products = [...cart.products, updatedProduct];
       }
-      cart.totalPrice = cart.totalPrice + productPrice;
+      cart.totalPrice = cart.totalPrice + +productPrice;
       fs.writeFile(newPath, JSON.stringify(cart), (err) => {
         console.log(err);
       });
