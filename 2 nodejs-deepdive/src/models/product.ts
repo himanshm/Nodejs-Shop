@@ -3,12 +3,13 @@ import path from 'path';
 import directoryName from '../util/path';
 import generateUniqueId from '../util/generateId';
 
-interface ProductType {
+export interface ProductType {
   id: string;
   title: string;
   imageUrl: string;
   description: string;
   price: number;
+  qty?: number;
 }
 
 // const products: ProductType[] = [];
