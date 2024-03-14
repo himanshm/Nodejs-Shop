@@ -1,14 +1,8 @@
-import mysql, { PoolOptions } from 'mysql2';
+import { Sequelize } from 'sequelize';
 
-/* A pool of connections which will allow us to always reach out to it whenever we have a query to run and then we get a new connection from that pool which manages multiple connections so that we can run multiple queries simultaneously because each query needs its own connection and once the query is done, the connection will be handed back into the pool and it's available again for a new query and the pool can then be finished when our application shuts down. */
-
-const access: PoolOptions = {
+const sequelize = new Sequelize('node_shop', 'root', 'vrprime1314', {
+  dialect: 'mysql',
   host: 'localhost',
-  user: 'root',
-  database: 'node_shop',
-  password: 'vrprime1314',
-};
+});
 
-const pool = mysql.createPool(access);
-
-export default pool.promise();
+export default sequelize;
