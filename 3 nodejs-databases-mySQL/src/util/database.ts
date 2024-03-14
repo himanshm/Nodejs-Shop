@@ -6,6 +6,9 @@ const access: PoolOptions = {
   host: 'localhost',
   user: 'root',
   database: 'node_shop',
+  password: 'vrprime1314',
 };
 
 const pool = mysql.createPool(access);
+
+export default pool.promise();
