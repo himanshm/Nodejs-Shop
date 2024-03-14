@@ -88,3 +88,11 @@ export const getProducts = (
     });
   });
 };
+
+export const postDeleteProduct = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const prodId = req.body.productId;
+};
