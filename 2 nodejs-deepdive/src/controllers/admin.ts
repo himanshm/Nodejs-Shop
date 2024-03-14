@@ -22,7 +22,7 @@ export const postAddProduct = (
   const imageUrl: string = req.body.imageUrl;
   const description: string = req.body.description;
   const price: number = req.body.price;
-  const product = new Product(title, imageUrl, description, price); // Watch the order defined in the constructor
+  const product = new Product(null, title, imageUrl, description, price); // Watch the order defined in the constructor
   product.save();
   res.redirect('/');
 };
@@ -55,7 +55,25 @@ export const postEditProduct = (
   req: Request,
   res: Response,
   next: NextFunction
-) => {};
+) => {
+  // Fetch Information for the product
+  const prodId: string = req.body.productId;
+  const updatedTitle: string = req.body.title;
+  const updatedImageUrl: string = req.body.imageUrl;
+  const updatedPrice: number = req.body.price;
+  const updatedDescription: string = req.body.description;
+  //Create a new product instance and populate it with the above information
+  const updatedProduct = new Product(
+    prodId,
+    updatedTitle,
+    updatedImageUrl,
+    updatedDescription,
+    updatedPrice
+  );
+  // Save the updated product
+  updatedProduct.save();
+  res.redirect('/admin/products');
+};
 
 export const getProducts = (
   req: Request,
