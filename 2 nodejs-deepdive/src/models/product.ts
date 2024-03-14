@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import directoryName from '../util/path';
 import generateUniqueId from '../util/generateId';
+import { Cart } from './cart';
 
 export interface ProductType {
   id: string | null;
@@ -59,9 +60,11 @@ export class Product {
 
   static deleteById(id: string) {
     getProductsFromFile((products) => {
+      const product = products.find((prod) => prod.id === id);
       const updatedProducts = products.filter((prod) => prod.id !== id);
       fs.writeFile(newPath, JSON.stringify(updatedProducts), (err) => {
         if (!err) {
+          Cart.deleteProduct(id, product ? product.price : 0);
         }
       });
     });
