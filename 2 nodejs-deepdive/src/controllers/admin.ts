@@ -51,6 +51,12 @@ export const getEditProduct = (
   });
 };
 
+export const postEditProduct = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {};
+
 export const getProducts = (
   req: Request,
   res: Response,
