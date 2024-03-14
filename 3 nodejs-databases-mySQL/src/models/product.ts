@@ -1,5 +1,6 @@
 import { Cart } from './cart';
 import db from '../util/database';
+import { RowDataPacket } from 'mysql2';
 
 export class Product {
   static products = [];
@@ -20,9 +21,18 @@ export class Product {
 
   static deleteById(id: string) {}
 
-  static fetchAll() {
-    return db.execute('SELECT * FROM products');
+  static async fetchAll(): Promise<RowDataPacket[]> {
+    const [rows, _] = await db.execute<RowDataPacket[]>(
+      'SELECT * FROM products'
+    );
+    return rows;
   }
 
-  static findById(id: string) {}
+  static async findById(id: number): Promise<RowDataPacket> {
+    const [rows, _] = await db.execute<RowDataPacket[]>(
+      'SELECT * FROM products WHERE products.id = ?',
+      [id]
+    );
+    return rows[0];
+  }
 }
