@@ -2,13 +2,13 @@ import fs from 'fs';
 import path from 'path';
 import directoryName from '../util/path';
 
-interface ProductType {
+interface CartProductType {
   id: string;
   qty: number;
 }
 
 interface CartType {
-  products: ProductType[];
+  products: CartProductType[];
   totalPrice: number;
 }
 
@@ -28,7 +28,7 @@ export class Cart {
       );
       const existingProduct = cart.products[existingProductIndex];
 
-      let updatedProduct: ProductType;
+      let updatedProduct: CartProductType;
 
       if (existingProduct) {
         updatedProduct = { ...existingProduct };
@@ -67,6 +67,17 @@ export class Cart {
       fs.writeFile(newPath, JSON.stringify(updatedCart), (err) => {
         console.log(err);
       });
+    });
+  }
+
+  static getCart(cb: (cart: CartType | null) => void) {
+    fs.readFile(newPath, 'utf-8', (err, fileContent) => {
+      const cart: CartType = JSON.parse(fileContent);
+      if (err) {
+        cb(null);
+      } else {
+        cb(cart);
+      }
     });
   }
 }
